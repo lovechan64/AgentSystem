@@ -6,7 +6,17 @@
  
     <package name="custom" namespace="/" extends="admin">
         
+  
+                     <action name="modifyCustomStatus" class="org.agent.action.CustomAction" method="modifyCustomStatus">
+     	  <result type="redirectAction">customlist</result>
+     	    <result name="input">/WEB-INF/pages/addcustom.jsp</result>
+      </action>
         
+        
+                        <action name="modifysavecustom" class="org.agent.action.CustomAction" >
+    			  <result type="redirectAction">customlist</result>
+         			  <result name="input">/WEB-INF/pages/modifycustom.jsp</result> 
+      </action>
         
         
                 <action name="chakancustom" class="org.agent.action.CustomAction" method="chakanCustom">

@@ -39,7 +39,8 @@
     </package>
     
     
-    
+    <include file="struts/struts-report.xml"></include>
+<include file="struts/struts-keyword.xml"></include>
 <include file="struts/struts-custom.xml"></include>
 <include file="struts/struts-login.xml"></include>
 <include file="struts/struts-user.xml"></include>

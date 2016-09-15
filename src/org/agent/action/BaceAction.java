@@ -54,6 +54,21 @@ public class BaceAction extends ActionSupport {
 		this.logsService = logsService;
 	}
 	public PrintWriter getOut() {
+		
+		try {
+			if(out==null){
+			this.out=this.getResponse().getWriter();
+			return out;
+			}else{
+				return out;
+			}
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return out;
 	}
 	public void setOut(PrintWriter out) {
@@ -64,12 +79,7 @@ public class BaceAction extends ActionSupport {
 		 
 			this.getResponse().setCharacterEncoding("UTF-8");
 		 
-		try {
-			this.out=this.getResponse().getWriter();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		if(this.pager==null)
 			this.pager=new PageSupport();

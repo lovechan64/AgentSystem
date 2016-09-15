@@ -8,7 +8,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 public class PageSupport {
 	private int totalCount=0 ;
 	private int pageCount;
-	private int pageSize=10;
+	private int pageSize=3;
 	private int page=1;
 	private int num=3 ;
 	private List items=new ArrayList();

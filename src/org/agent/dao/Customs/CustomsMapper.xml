@@ -6,7 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="modifyCustomStatus" parameterType="org.agent.pojo.Customs">
 		update as_customs
 		<set>
-			<if test="customStatus!=null"> customStatus =#{customStatus}, </if>
+			<if test="customStatus==1"> customStatus =0, </if>
+<if test="customStatus==0"> customStatus =1, </if>
 
 		</set>
 
@@ -37,6 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from as_customs
 		<where>
 
+			<if test="agentId!=null and agentId!=0">
+				and agentId =#{agentId}
+			</if>
 			<if test="customName!=null">
 				and customName like CONCAT('%',#{customName},'%')
 			</if>
@@ -96,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="companyFax!=null"> companyFax =#{companyFax}, </if>
 			<if test="regDatetime!=null"> regDatetime =#{regDatetime}, </if>
 			<if test="country!=null"> country =#{country}, </if>
-			<if test="isStart!=null"> province =#{province}, </if>
+			<if test="province!=null"> province =#{province}, </if>
 
 			<if test="agentId!=null and agentId!=0"> agentId =#{agentId}, </if>
 			<if test="agentName!=null"> agentName =#{agentName}, </if>

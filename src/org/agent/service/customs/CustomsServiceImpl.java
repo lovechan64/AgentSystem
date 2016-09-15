@@ -22,12 +22,14 @@ public class CustomsServiceImpl implements CustomsService {
 			mapper.addCustoms(customs);
 			
 			
-			
+			if(contactList!=null&&contactList.size()>0){
 			for(Contacts contacts:contactList){
 				contacts.setCustomId(customs.getId());
+				
+				if(contacts!=null)
 				contactsMapper.addContacts(contacts);
 			}
-			
+			}
 			
 			return true;
 			
@@ -49,30 +51,23 @@ public class CustomsServiceImpl implements CustomsService {
 	public boolean tx_modifyCustomContact(Customs customs, List<Contacts> contactList){
 		
 		
-		
-		
-	try {
-			
+ 
 			
 		mapper.modifyCustoms(customs);
 		
 		Contacts cccContacts=new Contacts();
 		cccContacts.setCustomId(customs.getId());
 		contactsMapper.deleteContacts(cccContacts);
+		if(contactList!=null&&contactList.size()>0){
 		for(Contacts contacts:contactList){
 			contacts.setCustomId(customs.getId());
-			
+			if(contacts!=null)
 			contactsMapper.addContacts(contacts);
 		}
-		
+		}
 			return true;
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-			
-			return false;
-		}
-		
+	 
 		
 		
 	

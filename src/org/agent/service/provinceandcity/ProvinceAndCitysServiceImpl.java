@@ -6,7 +6,7 @@ import java.util.List;
 import org.agent.dao.provinceandcity.ProvinceAndCitysMapper;
 import org.agent.pojo.Area;
 import org.agent.pojo.City;
-import org.agent.pojo.Logs;
+ 
 import org.agent.pojo.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

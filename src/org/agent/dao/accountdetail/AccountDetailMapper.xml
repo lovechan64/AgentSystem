@@ -11,11 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<if test="detailTypeName!=null">and d.detailTypeName =#{detailTypeName}</if>
 	<if test="startTime!=null">and d.detailDateTime >=#{startTime}</if>
 	<if test="endTime!=null">and #{endTime} >= d.detailDateTime </if>
+	<if test="detailType!=null and detailType!=0">and d.detailType =#{detailType}</if>
 	
 	order by d.detailDateTime desc 
 	 
 	
-  <if test="starNum!=null and starNum!=0 and pageSize!=0 and pageSize!=null">    limit #{starNum},#{pageSize}    </if>  
+  <if test="starNum!=null   and pageSize!=0 and pageSize!=null">    limit #{starNum},#{pageSize}    </if>  
  
 
 
@@ -26,16 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="count"  resultType="int" parameterType="org.agent.pojo.AccountDetail" >
 	
-		select count(1) from as_accountdetail 
-		<where>
-		<if test="userId!=null and userId!=0">and  userId =#{userId}</if>
-	<if test="detailTypeName!=null">and  detailTypeName =#{detailTypeName}</if>
-	<if test="startTime!=null">and  detailDateTime >=#{startTime}</if>
-	<if test="endTime!=null">and #{endTime} >=  detailDateTime </if>
+		select count(1) from as_accountdetail as d,as_user as u where d.userId=u.id 
+				
+	<if test="userId!=null and userId!=0">and d.userId =#{userId}</if>
+	<if test="detailTypeName!=null">and d.detailTypeName =#{detailTypeName}</if>
+	<if test="startTime!=null">and d.detailDateTime >=#{startTime}</if>
+	<if test="endTime!=null">and #{endTime} >= d.detailDateTime </if>
+	<if test="detailType!=null and detailType!=0">and d.detailType =#{detailType}</if>
 	
-	
-	
-	</where>
 	
 	</select>
 

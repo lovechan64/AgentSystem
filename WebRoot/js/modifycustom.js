@@ -1,7 +1,7 @@
 var contactcount=0;
 $().ready(function(){
 	mover(1);
-	
+	contactcount=	$("#contactcount").val();
 //	$("#regdate").val(new Date().format("yyyy-MM-dd"));
 	
 	
@@ -26,6 +26,40 @@ $().ready(function(){
 		
 	},'json');
 	});
+	
+
+	var province=$("#customprovince").val();
+	var city=$("#city").val();
+	var  area=$("#area").val();
+	if(province!=""&&city!=""){
+		
+		$.post("/loadcity.action",{"province.provinceId":province},function(result){
+			if(result!=""){
+				for(var i=0;i<result.length;i++){
+					if(city==result[i].cityId)
+					$("#customcity").append("<option selected='selected' value='"+result[i].cityId+"'>"+result[i].city+"</option>");
+					else
+					$("#customcity").append("<option value='"+result[i].cityId+"'>"+result[i].city+"</option>");
+					
+				}
+				
+					
+					
+					
+					
+					
+			}else{
+				humane.error("城市加载失败！");
+				
+			}
+			
+		},'json');
+		
+		
+	}
+	
+	
+	
 	$("#customcity").change(function(){
 		$("#customarea").empty();
 		$("#customarea").append("<option value='' selected='selected'>--请选择--</option>");
@@ -46,14 +80,14 @@ $().ready(function(){
 	
 	
 	
-	
 	$("#customtype").change(function(){
 		$("#customtypename").val($("#customtype option:selected").text());
 	});
 	
-	$("#customcardtype").change(function(){
-		$("#customcardtypename").val($("#customcardtype option:selected").text());
+	$("#customcardType").change(function(){
+		$("#customcardtypename").val($("#customcardType option:selected").text());
 	});
+	
 	
 	
 	
@@ -89,7 +123,32 @@ $().ready(function(){
 		
 	});
 	
-	 addContactready();
+	 
+	 
+	 
+
+		if(area!=""&&city!=""){
+			
+			$.post("/loadarea.action",{"city.cityId":city},function(result){
+				if(result!=""){
+					for(var i=0;i<result.length;i++)
+					
+						
+						if(area==result[i].areaId)
+							  $("#customarea").append("<option  selected='selected' value='"+result[i].areaId+"'>"+result[i].area+"</option>");
+						 else
+						  $("#customarea").append("<option value='"+result[i].areaId+"'>"+result[i].area+"</option>");
+					 
+				}else{
+					humane.error("区域加载失败！");
+					
+				}
+				
+			},'json');
+			
+		}
+		
+		
 	 	
 });
 
@@ -109,40 +168,7 @@ function addContact(){
 	
 }
 
-function addContactready(){
-	
- var contactsList= 	$("#contactsList").val();
-	for(var i=0;i<contactsList.length;i++){
-		var str="<tr><td><input type='text' value="+contactsList[i].id+" name='contactsList["+contactcount+"].contactName'></td>" +		
-		"<td><input type='text' value="+contactsList[i].contactTel+" name='contactsList["+contactcount+"].contactTel'></td>" +
-		"<td><input type='text' value="+contactsList[i].contactFax+" name='contactsList["+contactcount+"].contactFax'></td>" +
-		"<td><input type='text' value="+contactsList[i].contactEmail+" name='contactsList["+contactcount+"].contactEmail'></td>" +
-		"<td><input type='text' value="+contactsList[i].contactRole+" name='contactsList["+contactcount+"].contactRole'></td>" +
-		"<td onclick='delTr(this)' ><a href='javascript:void(0)'>删除</a></td></tr>" ;
-		
-		$("#addtr").append(str);
-		
-		contactcount++;
-	}
-	
-	
-	
-	var str="<tr><td><input type='text' name='contactsList["+contactcount+"].contactName'></td>" +		
-	"<td><input type='text' name='contactsList["+contactcount+"].contactTel'></td>" +
-	"<td><input type='text' name='contactsList["+contactcount+"].contactFax'></td>" +
-	"<td><input type='text' name='contactsList["+contactcount+"].contactEmail'></td>" +
-	"<td><input type='text' name='contactsList["+contactcount+"].contactRole'></td>" +
-	"<td onclick='delTr(this)' ><a href='javascript:void(0)'>删除</a></td></tr>" ;
-	
-	$("#addtr").append(str);
-	
-	
-	
-	
-	contactcount++;
-	
-	
-}
+ 
 
 function checkValidateNum(value){
 	var reg=new RegExp("^[0-9]*$");
@@ -165,11 +191,11 @@ function checksave(){
 		humane.error("客户名称不能为空");
 		return;
 	}
-/*	if(customtypename==null){
+ if(customtypename==null){
 		humane.error("客户类型不能为空");
 		return;
-	}*/
-	$.post("/isexitcustomname.action",{"custom.customName":customname},
+	} 
+/*	$.post("/isexitcustomname.action",{"custom.customName":customname},
 	
 	function(result){
 		if(result=="peat"){
@@ -181,6 +207,7 @@ function checksave(){
 		}
 		
 		
-	},"html");
+	},"html");*/
+ $("#mform").submit();
 	
 }

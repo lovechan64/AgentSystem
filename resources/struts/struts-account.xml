@@ -7,7 +7,18 @@
     <package name="account" namespace="/" extends="admin">
         
         
-    
+        
+          <action name="useryfk" class="org.agent.action.AccountAction" method="userYfk">
+      <result>/WEB-INF/pages/useryfk.jsp</result>
+      </action>
+           <action name="yfk" class="org.agent.action.AccountAction" method="yfk">
+      <result>/WEB-INF/pages/yfk.jsp</result>
+      </action>
+        
+        
+          <action name="account" class="org.agent.action.AccountAction" method="getCurrentUserAccount">
+      
+      </action>
          <action name="accountdetail" class="org.agent.action.AccountAction" method="accountDetailByUserId">
       <result>/WEB-INF/pages/accountdetail.jsp</result>
       </action>

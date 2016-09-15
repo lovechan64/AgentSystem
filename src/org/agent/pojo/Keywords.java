@@ -1,19 +1,20 @@
 package org.agent.pojo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
  
 public class Keywords  extends Base{
 
 	 
- 
+	private String seachStr;
 	private String keywords;
 	private int agentId;
 	private String agentName;
 	private int customId;
 	private String customName;
-	private Double preRegFrozenMoney;
-	private Double price;
+	private BigDecimal preRegFrozenMoney;
+	private BigDecimal price;
 	private Integer productType;
 	private Integer serviceYears;
 	private Integer openApp;
@@ -32,6 +33,12 @@ public class Keywords  extends Base{
 	private Integer checkStatus;
 	private Integer isUse;
  
+	public String getSeachStr() {
+		return seachStr;
+	}
+	public void setSeachStr(String seachStr) {
+		this.seachStr = seachStr;
+	}
 	public String getKeywords() {
 		return keywords;
 	}
@@ -62,16 +69,16 @@ public class Keywords  extends Base{
 	public void setCustomName(String customName) {
 		this.customName = customName;
 	}
-	public Double getPreRegFrozenMoney() {
+	public BigDecimal getPreRegFrozenMoney() {
 		return preRegFrozenMoney;
 	}
-	public void setPreRegFrozenMoney(Double preRegFrozenMoney) {
+	public void setPreRegFrozenMoney(BigDecimal preRegFrozenMoney) {
 		this.preRegFrozenMoney = preRegFrozenMoney;
 	}
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public Integer getProductType() {

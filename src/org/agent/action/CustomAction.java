@@ -40,6 +40,44 @@ public class CustomAction extends BaceAction {
 	private List<Contacts> contactsList;
 	
 	
+	
+	
+	public String modifyCustomStatus(){
+		if(custom!=null)
+	if(	this.customsService.modifyCustomStatus(custom)>0){
+		return "success";
+	}
+		
+		return "input";
+	}
+	
+	public String execute(){
+		
+		
+		
+		
+		
+		
+		 	custom.setAgentCode(this.getCurrentUser().getUserCode());
+		custom.setAgentId(this.getCurrentUser().getId());
+		custom.setAgentName(this.getCurrentUser().getUserName());
+		 
+		 
+			if(custom!=null)
+				this.getCustomsService().tx_modifyCustomContact(custom, contactsList);
+		this.setLog(getCurrentUser(), "用户【"+this.getCurrentUser().getUserCode()+"】进行客户修改操作:修改客户:"+custom.getCustomName());
+			
+		 
+		
+		
+		
+		return "success";
+
+		
+		
+		
+		 
+	}
 
 	public String chakanCustom(){
 	

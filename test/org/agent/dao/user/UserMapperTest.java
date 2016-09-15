@@ -6,14 +6,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.agent.common.Constants;
+import org.agent.common.SQLTools;
 import org.agent.pojo.Area;
 import org.agent.pojo.Contacts;
 import org.agent.pojo.Customs;
+import org.agent.pojo.Keywords;
 import org.agent.pojo.Logs;
 import org.agent.pojo.SystemConfig;
 import org.agent.pojo.User;
 import org.agent.service.contacts.ContactsService;
 import org.agent.service.customs.CustomsService;
+import org.agent.service.keywords.KeywordsService;
 import org.agent.service.provinceandcity.ProvinceAndCitysService;
 import org.agent.service.systemconfig.SystemConfigService;
 import org.agent.service.user.UserService;
@@ -56,7 +59,7 @@ contacts.setCustomId(1);
 contactList.add(contacts);
 userService.addCustoms(user);
 	*/	
-	
+	/*
 ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext-a.xml");
 CustomsService userService=ctx.getBean("customsService",CustomsService.class);
 ContactsService contactsService=ctx.getBean("contactsService",ContactsService.class);
@@ -76,6 +79,16 @@ List<Contacts>	contactsList=contactsService.getContactsList(contactss);
 
 custom= userService.getCustomsById(custom);
 
+
+
+boolean flag= userService.tx_modifyCustomContact(custom, contactsList);
+
+System.out.println(flag+"======================getContactName"+custom.getAgentName());*/
+/*for (Contacts ccc:contactsList ) {
+System.out.println(flag+"======================getContactName"+custom.getAgentName());
+}*/
+
+/*}*/
 
 /*
 Area area=new Area();
@@ -98,14 +111,30 @@ userService.tx_addCustomContact(user, contactList);
 
 */
 
-for (Contacts ccc:contactsList ) {
-System.out.println(ccc.getContactName()+"======================getContactName"+custom.getAgentName());
-}
+ ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext-a.xml");
+ CustomsService userService=ctx.getBean("customsService",CustomsService.class);
+ KeywordsService keywordsService=ctx.getBean("keywordsService",KeywordsService.class);
 
+ 
+ 
+ 
+ Keywords keywords=new Keywords();
+ keywords.setAgentId(2);
+ keywords.setKeywords("a");
+ if(keywords.getKeywords()!=null){
+	 keywords.setSeachStr("%"+SQLTools.transfer(keywords.getKeywords())+"%");
+ }
+ int totalCount=keywordsService.count(keywords);
+List<Keywords> keywords2= keywordsService.getList(keywords);
+/*Keywords a=keywords2.get(0);
+a.setIsUse(0);
+keywordsService.modifyKeywords(a);
+ */
+for (Keywords ccc:keywords2 ) {
+	System.out.println(ccc.getAgentName()+"======================getContactName"+totalCount);
 }
-
 	 
 }
   
-
+}
 

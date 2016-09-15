@@ -2,6 +2,7 @@ package org.agent.dao.role;
 
 import java.util.List;
 
+ 
 import org.agent.pojo.Role;
 
 public interface RoleMapper {
@@ -12,4 +13,5 @@ public interface RoleMapper {
 	public int modifyRole(Role role);
 	public int deleteRole(Role role);
 	public List<Role> getRoleIdAndNameList();
+
 }

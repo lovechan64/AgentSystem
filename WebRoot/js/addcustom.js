@@ -52,8 +52,8 @@ $().ready(function(){
 		$("#customtypename").val($("#customtype option:selected").text());
 	});
 	
-	$("#customcardtype").change(function(){
-		$("#customcardtypename").val($("#customcardtype option:selected").text());
+	$("#customcardType").change(function(){
+		$("#customcardtypename").val($("#customcardType option:selected").text());
 	});
 	
 	
@@ -124,6 +124,7 @@ function checkValidateNum(value){
 
 function delTr(obj){
 	$(obj).parent().remove();
+	contactcount--;
 }
 function checksave(){
 	var customname=$.trim($("#customname").val());

@@ -1,5 +1,8 @@
 package org.agent.action;
  
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +23,7 @@ import org.agent.service.account.AccountService;
 import org.agent.service.accountdetail.AccountDetailService;
 import org.agent.service.customs.CustomsService;
 import org.agent.service.systemconfig.SystemConfigService;
+import org.agent.service.user.UserService;
 
 import com.opensymphony.xwork2.Action;
  
@@ -37,6 +41,113 @@ public class AccountAction extends BaceAction {
 	 private AccountService accountService;
 	 private AccountDetailService accountDetailService;
 	 private  String customsname;
+	 private UserService userService;
+	 
+
+	 public String userYfk(){
+		 if(accountDetail!=null){
+			 user=new User();
+			 user.setId(accountDetail.getUserId());
+			 user= this.userService.getUser(user); 
+			accountDetail.setUserName(user.getUserCode());      
+			 if(null!=accountDetail.getEndTime()){
+				 DateFormat df=DateFormat.getDateInstance();
+				 String dfString=df.format(accountDetail.getEndTime())+" 23:59:59";
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+				accountDetail.setEndTime(sdf.parse(dfString));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 }
+		 }else {
+			 accountDetail=new AccountDetail();
+		}
+		 
+		 
+		 
+		 SystemConfig systemConfig=new SystemConfig();
+		 systemConfig.setConfigType(1);
+		
+		 this.accountConfigList=systemConfigService.getSystemConfigs(systemConfig) ;
+		 
+		
+		 
+		 
+		
+			
+			 
+			 
+			 accountDetail.setStarNum((this.getPager().getPage()-1)*this.getPager().getPageSize());
+			 accountDetail.setPageSize(this.getPager().getPageSize());
+			 
+			 if(this.getPager()==null)
+				 this.setPager(new PageSupport());
+			 int totalCount=this.getAccountDetailService().count(accountDetail);
+			this.getPager().setTotalCount(totalCount);
+			 this.getPager().setItems(	this.getAccountDetailService().getAccountDetailList(accountDetail));
+			 
+			 
+		 
+		 return Action.SUCCESS;
+	 }
+	 public String yfk(){
+		 if(accountDetail!=null){
+			 if(null!=accountDetail.getEndTime()){
+				 DateFormat df=DateFormat.getDateInstance();
+				 String dfString=df.format(accountDetail.getEndTime())+" 23:59:59";
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+				accountDetail.setEndTime(sdf.parse(dfString));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 }
+		 }else {
+			 accountDetail=new AccountDetail();
+		}
+		 
+		 
+		 
+		 SystemConfig systemConfig=new SystemConfig();
+		 systemConfig.setConfigType(1);
+		
+		 this.accountConfigList=systemConfigService.getSystemConfigs(systemConfig) ;
+		 
+		
+		 
+		 
+		
+			 accountDetail.setUserId(this.getCurrentUser().getId());
+			 
+			 
+			 accountDetail.setStarNum((this.getPager().getPage()-1)*this.getPager().getPageSize());
+			 accountDetail.setPageSize(this.getPager().getPageSize());
+			 
+			 if(this.getPager()==null)
+				 this.setPager(new PageSupport());
+			 int totalCount=this.getAccountDetailService().count(accountDetail);
+			this.getPager().setTotalCount(totalCount);
+			 this.getPager().setItems(	this.getAccountDetailService().getAccountDetailList(accountDetail));
+			 
+			 
+		 
+		 return Action.SUCCESS;
+	 }
+	 
+	 public void getCurrentUserAccount(){
+		 String result="failed";
+		 this.account=new Account();
+		 account.setUserId(this.getCurrentUser().getId());
+		 account= this.accountService.getAccount(account);
+		 if(account!=null)
+		 result=account.getMoney().toString();
+		 
+		 this.getOut().print(result);
+	 }
+	 
 	 
 	public String customList(){
 		if(customs==null)
@@ -253,6 +364,9 @@ this.getOut().print(jsonString);
 
 	public void setCustoms(Customs customs) {
 		this.customs = customs;
+	}
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 	
 	

@@ -9,6 +9,7 @@ public class Base {
 	private Date startTime;
 	private Date endTime;
 	private String searchStr ;
+ 
 	public int getId() {
 		return id;
 	}
